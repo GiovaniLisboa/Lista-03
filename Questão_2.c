@@ -32,11 +32,11 @@ void troca(int vetor[], int tamanho){
 }
 
 void radixsort(int vetor[], int tamanho) {
+	int i;
+	
 	if (checar(vetor)) {
-	    int i;
-	    int *pont;
+	    int *pont = (int *)calloc(tamanho, sizeof(int));
 	    int base = 1;
-		pont = (int *)calloc(tamanho, sizeof(int));
 
 		int maior = vetor[0];
     	for (i = 0; i < tamanho; i++) {
@@ -44,7 +44,7 @@ void radixsort(int vetor[], int tamanho) {
     	   		maior = vetor[i];
     	}
 
-    	while (maior/exp > 0) {
+    	while (maior/base > 0) {
         	int bucket[10] = { 0 };
     		for (i = 0; i < tamanho; i++)
     	    	bucket[(vetor[i] / base) % 10]++;
@@ -53,11 +53,11 @@ void radixsort(int vetor[], int tamanho) {
 	    	for (i = tamanho - 1; i >= 0; i--)
 	    	    pont[--bucket[(vetor[i] / base) % 10]] = vetor[i];
 	    	for (i = 0; i < tamanho; i++)
-	    	    vetor[i] = b[i];
+	    	    vetor[i] = pont[i];
 	    	base *= 10;
 	    }
 
-    	free(b);
+    	free(pont);
 	}
 	
 	printf("\nLista apos ordenacao por radixsort\n");
